@@ -34,7 +34,9 @@
               </el-input>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" class="loginbutton">登录</el-button>
+              <el-button type="primary" class="loginbutton" @click="login"
+                >登录</el-button
+              >
             </el-form-item>
           </el-form>
         </el-tab-pane>
@@ -95,7 +97,7 @@
               >
             </el-form-item>
             <el-form-item class="footer">
-              <el-button type="primary" class="registerbutton">登录</el-button>
+              <el-button type="primary" class="registerbutton">注册</el-button>
               <el-button type="primary" class="registerbutton" @click="reset"
                 >重置</el-button
               >
@@ -112,11 +114,16 @@ import { Lock, Message, User } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import type { TabsPaneContext } from 'element-plus'
 import type { formdata } from './type'
+import { useRouter } from 'vue-router'
 
 const activeName = ref('first')
 const formRef = ref()
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event)
+}
+const router = useRouter()
+const login = () => {
+  router.push('/')
 }
 //重置按钮
 const reset = () => {
@@ -193,10 +200,9 @@ const rules = ref({
   align-items: center;
   width: 100%;
   min-height: 100vh;
-  background-color: rgb(240, 242, 245);
   .content {
-    width: 450px;
-    padding: 40px 40px 10px 40px;
+    width: 90vw;
+    padding: 20px 20px 10px 20px;
     border-radius: 16px;
     background-color: rgba(255, 255, 255);
     box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
@@ -222,7 +228,7 @@ const rules = ref({
   }
 }
 .el-input {
-  height: 45px;
+  height: 8vh;
   width: 100%;
   :deep(.el-input__wrapper) {
     border-radius: 8px;
@@ -234,11 +240,8 @@ const rules = ref({
 }
 
 .email {
-  height: 45px;
-  width: 220px;
-}
-.demo-tabs {
-  margin-top: 20px;
+  height: 8vh;
+  width: 50vw;
 }
 .demo-tabs > .el-tabs__content {
   color: #6b778c;
@@ -247,22 +250,22 @@ const rules = ref({
 }
 .loginbutton {
   width: 100%;
-  height: 45px;
+  height: 7vh;
   border-radius: 8px;
 }
 .registerbutton {
   width: 40%;
-  height: 45px;
+  height: 6vh;
   border-radius: 8px;
 }
 
 .button {
-  height: 45px;
-  margin-left: 20px;
-  width: 130px;
+  height: 8vh;
+  margin-left: 3vw;
+  width: 25vw;
   border-radius: 8px;
 }
 .footer {
-  margin-top: 25px;
+  margin-top: 4vh;
 }
 </style>
