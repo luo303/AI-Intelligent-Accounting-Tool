@@ -32,6 +32,8 @@ export default defineConfigWithVueTs(
     rules: {
       // 允许使用 any 类型
       '@typescript-eslint/no-explicit-any': 'off',
+      // Vue 规则：组件名必须为多单词
+      'vue/multi-word-component-names': 'off',
 
       'prettier/prettier': 'warn'
     }
