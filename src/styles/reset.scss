@@ -6,7 +6,10 @@
   outline: none;
 }
 
-html,
+html {
+  font-size: 16px;
+}
+
 body {
   background-color: rgb(240, 242, 245);
   height: 100%;

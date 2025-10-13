@@ -33,11 +33,8 @@
               >
               </el-input>
             </el-form-item>
-            <el-form-item>
-              <el-button type="primary" class="loginbutton" @click="login"
-                >登录</el-button
-              >
-            </el-form-item>
+
+            <button class="loginbutton" @click="login">登录</button>
           </el-form>
         </el-tab-pane>
         <el-tab-pane label="注册" name="second">
@@ -92,16 +89,13 @@
                 class="email"
               >
               </el-input>
-              <el-button plain type="primary" class="button"
-                >发送验证码</el-button
-              >
+              <button class="emailbutton">发送验证码</button>
             </el-form-item>
-            <el-form-item class="footer">
-              <el-button type="primary" class="registerbutton">注册</el-button>
-              <el-button type="primary" class="registerbutton" @click="reset"
-                >重置</el-button
-              >
-            </el-form-item>
+
+            <div class="footer">
+              <button class="registerbutton">注册</button>
+              <button class="registerbutton" @click="reset">重置</button>
+            </div>
           </el-form></el-tab-pane
         >
       </el-tabs>
@@ -199,7 +193,7 @@ const rules = ref({
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: 100vh;
+  min-height: 45rem;
   .content {
     width: 90vw;
     padding: 20px 20px 10px 20px;
@@ -228,7 +222,7 @@ const rules = ref({
   }
 }
 .el-input {
-  height: 8vh;
+  height: 4rem;
   width: 100%;
   :deep(.el-input__wrapper) {
     border-radius: 8px;
@@ -240,7 +234,7 @@ const rules = ref({
 }
 
 .email {
-  height: 8vh;
+  height: 4rem;
   width: 50vw;
 }
 .demo-tabs > .el-tabs__content {
@@ -250,22 +244,30 @@ const rules = ref({
 }
 .loginbutton {
   width: 100%;
-  height: 7vh;
+  height: 3rem;
+  border: none;
   border-radius: 8px;
+  background-color: rgb(64, 158, 255);
 }
 .registerbutton {
   width: 40%;
-  height: 6vh;
+  height: 3rem;
+  border: none;
   border-radius: 8px;
+  background-color: rgb(64, 158, 255);
 }
 
-.button {
-  height: 8vh;
+.emailbutton {
+  height: 4rem;
   margin-left: 3vw;
   width: 25vw;
+  border: none;
   border-radius: 8px;
+  background-color: rgba(206, 223, 242, 0.618);
 }
 .footer {
-  margin-top: 4vh;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-around;
 }
 </style>
