@@ -1,7 +1,6 @@
 <template>
   <div>
     <router-view />
-
     <van-tabbar route>
       <van-tabbar-item replace to="/home" icon="wap-home">首页</van-tabbar-item>
       <van-tabbar-item replace to="/echarts" icon="gold-coin"
@@ -22,6 +21,6 @@
 
 <style scoped lang="scss">
 .van-tabbar {
-  height: 4rem;
+  height: 8vh;
 }
 </style>

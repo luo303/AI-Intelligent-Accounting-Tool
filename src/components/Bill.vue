@@ -1,58 +1,205 @@
 <template>
-  <div class="bill">
-    <div class="top">
-      <div class="left">{{ time }}</div>
-      <div class="right">
-        <div class="font">支</div>
-        <span>￥110</span>
+  <div v-if="list.length !== 0">
+    <div class="bill" v-for="(bill, date) in list" :key="bill.billId">
+      <div class="top">
+        <div class="left">{{ date }}</div>
+        <div class="right">
+          <div class="font">支</div>
+          <span>￥{{ bill.total }}</span>
+        </div>
+      </div>
+      <div class="content">
+        <div class="item" v-for="(item, index) in bill.bills" :key="index">
+          <div class="item-left">
+            <div class="img">
+              <van-image
+                round
+                width="2rem"
+                height="2rem"
+                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+              />
+            </div>
+            <div class="detail">
+              <div class="detail-top">{{ item.category }}</div>
+              <div class="detail-bottom">{{ item.note }}支出</div>
+            </div>
+          </div>
+          <div class="item-right">-￥{{ item.amount }}</div>
+        </div>
       </div>
     </div>
-    <div class="content">
-      <div class="item">
-        <div class="item-left">
-          <div class="img">
-            <van-image
-              round
-              width="2rem"
-              height="2rem"
-              src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-            />
-          </div>
-          <div class="detail">
-            <div class="detail-top">餐饮</div>
-            <div class="detail-bottom">xhh支出</div>
-          </div>
-        </div>
-        <div class="item-right">-￥11.00</div>
-      </div>
-      <div class="item">
-        <div class="item-left">
-          <div class="img">
-            <van-image
-              round
-              width="2rem"
-              height="2rem"
-              src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-            />
-          </div>
-          <div class="detail">
-            <div class="detail-top">餐饮</div>
-            <div class="detail-bottom">xhh支出</div>
-          </div>
-        </div>
-        <div class="item-right">-￥11.00</div>
-      </div>
-    </div>
+  </div>
+  <div v-else>
+    <van-empty image-size="17rem" description="暂无账单" />
   </div>
 </template>
 
 <script setup lang="ts">
-const time = '2025-10-13'
+const rawlist = [
+  {
+    billId: 11,
+    amount: 300,
+    currency: 'CNY',
+    category: '游戏',
+    note: 'steam',
+    noteImgUrl: '',
+    billAt: '2025-09-23',
+    comments: [
+      {
+        commentId: 2,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      },
+      {
+        commentId: 3,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      }
+    ]
+  },
+  {
+    billId: 11,
+    amount: 300,
+    currency: 'CNY',
+    category: '游戏',
+    note: 'steam',
+    noteImgUrl: '',
+    billAt: '2025-09-24',
+    comments: [
+      {
+        commentId: 2,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      },
+      {
+        commentId: 3,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      }
+    ]
+  },
+  {
+    billId: 11,
+    amount: 300,
+    currency: 'CNY',
+    category: '游戏',
+    note: 'steam',
+    noteImgUrl: '',
+    billAt: '2025-09-24',
+    comments: [
+      {
+        commentId: 2,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      },
+      {
+        commentId: 3,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      }
+    ]
+  },
+  {
+    billId: 11,
+    amount: 300,
+    currency: 'CNY',
+    category: '游戏',
+    note: 'steam',
+    noteImgUrl: '',
+    billAt: '2025-07-23',
+    comments: [
+      {
+        commentId: 2,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      },
+      {
+        commentId: 3,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      }
+    ]
+  },
+  {
+    billId: 11,
+    amount: 300,
+    currency: 'CNY',
+    category: '游戏',
+    note: 'steam',
+    noteImgUrl: '',
+    billAt: '2025-09-23',
+    comments: [
+      {
+        commentId: 2,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      },
+      {
+        commentId: 3,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      }
+    ]
+  },
+  {
+    billId: 11,
+    amount: 300,
+    currency: 'CNY',
+    category: '游戏',
+    note: 'steam',
+    noteImgUrl: '',
+    billAt: '2025-09-23',
+    comments: [
+      {
+        commentId: 2,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      },
+      {
+        commentId: 3,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      }
+    ]
+  }
+]
+const list = rawlist.reduce((acc: any, bill) => {
+  // 获取当前账单的日期键（这里 billAt 已是 YYYY-MM-DD 格式）
+  const dateKey = bill.billAt
+  const dateamount = bill.amount
+  // 检查累积器中是否有该日期键，没有则初始化空数组
+  if (!acc[dateKey]) {
+    acc[dateKey] = {
+      bills: [],
+      total: 0
+    }
+  }
+
+  //  将当前账单推入对应日期的数组
+  acc[dateKey].bills.push(bill)
+  acc[dateKey].total += dateamount
+
+  // 返回累积器，供下一次遍历使用
+  return acc
+}, {}) // 初始化累积器为 空对象
+console.log(list)
 </script>
 
 <style scoped lang="scss">
 .bill {
-  margin: 2vw 5vw;
+  margin: 2vh 5vw;
   width: 90vw;
   border-radius: 16px;
   padding: 1rem;
@@ -80,7 +227,7 @@ const time = '2025-10-13'
     margin-top: 1rem;
     .item {
       height: 3rem;
-      margin: 1rem;
+      margin: 1rem 1rem 0;
       display: flex;
       align-items: center;
       justify-content: space-between;

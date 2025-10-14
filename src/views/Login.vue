@@ -237,7 +237,7 @@ const rules = ref({
 
 .email {
   height: 4rem;
-  width: 50vw;
+  width: 47vw;
 }
 .demo-tabs > .el-tabs__content {
   color: #6b778c;
