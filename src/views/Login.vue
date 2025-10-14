@@ -34,7 +34,7 @@
               </el-input>
             </el-form-item>
 
-            <button class="loginbutton" @click="login">登录</button>
+            <button class="loginbutton" @click.prevent="login">登录</button>
           </el-form>
         </el-tab-pane>
         <el-tab-pane label="注册" name="second">
@@ -94,7 +94,9 @@
 
             <div class="footer">
               <button class="registerbutton">注册</button>
-              <button class="registerbutton" @click="reset">重置</button>
+              <button class="registerbutton" @click.prevent="reset">
+                重置
+              </button>
             </div>
           </el-form></el-tab-pane
         >
@@ -117,7 +119,7 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
 }
 const router = useRouter()
 const login = () => {
-  router.push('/')
+  router.push('/home')
 }
 //重置按钮
 const reset = () => {
@@ -259,7 +261,7 @@ const rules = ref({
 
 .emailbutton {
   height: 4rem;
-  margin-left: 3vw;
+  margin-left: 4.5vw;
   width: 25vw;
   border: none;
   border-radius: 8px;
