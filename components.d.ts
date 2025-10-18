@@ -16,9 +16,5 @@ declare module 'vue' {
     ElTabs: typeof import('element-plus/es')['ElTabs']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    VanEmpty: typeof import('vant/es')['Empty']
-    VanImage: typeof import('vant/es')['Image']
-    VanTabbar: typeof import('vant/es')['Tabbar']
-    VanTabbarItem: typeof import('vant/es')['TabbarItem']
   }
 }

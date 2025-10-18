@@ -173,6 +173,75 @@ const rawlist = [
         imgUrl: ''
       }
     ]
+  },
+  {
+    billId: 11,
+    amount: 300,
+    currency: 'CNY',
+    category: '游戏',
+    note: 'steam',
+    noteImgUrl: '',
+    billAt: '2025-09-28',
+    comments: [
+      {
+        commentId: 2,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      },
+      {
+        commentId: 3,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      }
+    ]
+  },
+  {
+    billId: 11,
+    amount: 300,
+    currency: 'CNY',
+    category: '游戏',
+    note: 'steam',
+    noteImgUrl: '',
+    billAt: '2025-09-28',
+    comments: [
+      {
+        commentId: 2,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      },
+      {
+        commentId: 3,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      }
+    ]
+  },
+  {
+    billId: 11,
+    amount: 300,
+    currency: 'CNY',
+    category: '游戏',
+    note: 'steam',
+    noteImgUrl: '',
+    billAt: '2025-06-23',
+    comments: [
+      {
+        commentId: 2,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      },
+      {
+        commentId: 3,
+        userName: 'zhengjun1',
+        content: '羡慕steam',
+        imgUrl: ''
+      }
+    ]
   }
 ]
 const list = rawlist.reduce((acc: any, bill) => {

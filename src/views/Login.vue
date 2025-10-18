@@ -197,7 +197,7 @@ const rules = ref({
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   .content {
     width: 90vw;
     padding: 20px 20px 10px 20px;
