@@ -199,7 +199,7 @@ console.log(list)
 
 <style scoped lang="scss">
 .bill {
-  margin: 2vh 5vw;
+  margin: 1.5vw 5vw;
   width: 90vw;
   border-radius: 16px;
   padding: 1rem;

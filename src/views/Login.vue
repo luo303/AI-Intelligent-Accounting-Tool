@@ -10,6 +10,7 @@
       >
         <el-tab-pane label="账号登录" name="first">
           <el-form
+            class="form"
             ref="ruleFormRef"
             style="max-width: 600px"
             :model="formdata"
@@ -39,6 +40,7 @@
         </el-tab-pane>
         <el-tab-pane label="注册" name="second">
           <el-form
+            class="form"
             ref="formRef"
             style="max-width: 600px"
             :model="formdata"
@@ -195,7 +197,7 @@ const rules = ref({
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: 45rem;
+  height: 100vh;
   .content {
     width: 90vw;
     padding: 20px 20px 10px 20px;
@@ -223,6 +225,9 @@ const rules = ref({
     }
   }
 }
+:deep(.form) {
+  max-width: 100% !important;
+}
 .el-input {
   height: 4rem;
   width: 100%;
@@ -237,7 +242,7 @@ const rules = ref({
 
 .email {
   height: 4rem;
-  width: 47vw;
+  flex: 3;
 }
 .demo-tabs > .el-tabs__content {
   color: #6b778c;
@@ -261,8 +266,8 @@ const rules = ref({
 
 .emailbutton {
   height: 4rem;
-  margin-left: 4.5vw;
-  width: 25vw;
+  margin-left: 1vw;
+  flex: 1;
   border: none;
   border-radius: 8px;
   background-color: rgba(206, 223, 242, 0.618);

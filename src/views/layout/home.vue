@@ -1,7 +1,8 @@
 <template>
   <div class="main">
-    <div class="empty"></div>
-    <div class="top"></div>
+    <div class="top">
+      <input type="text" />
+    </div>
     <div class="detail">
       <div class="detail-top"></div>
       <bill></bill>
@@ -14,19 +15,12 @@ import Bill from '@/components/Bill.vue'
 </script>
 
 <style lang="scss" scoped>
-.empty {
-  height: 2rem;
-}
 .top {
-  margin: 0 5vw 2vw 5vw;
+  margin: 4vw 5vw 2vw 5vw;
   min-height: 10rem;
   width: 90vw;
   border-radius: 16px;
   background-color: rgba(255, 255, 255);
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
-}
-.main {
-  height: 92vh;
-  overflow: scroll;
 }
 </style>
