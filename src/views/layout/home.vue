@@ -6,12 +6,12 @@
       >
       <div class="expense">
         <span class="expense-font">支</span>
-        ￥2025
+        ￥{{ Math.abs(expense) }}
       </div>
       <div class="abc">
         <span class="income">
           <span class="income-font">收</span>
-          ￥2021
+          ￥{{ income }}
         </span>
         <span class="balance">
           <span class="income-font">余</span>
@@ -21,7 +21,7 @@
     </div>
     <div class="detail">
       <div class="detail-top"></div>
-      <bill></bill>
+      <bill ref="billRef"></bill>
     </div>
     <!-- 日期选择 -->
     <van-popup
@@ -44,25 +44,35 @@
 
 <script setup lang="ts">
 import Bill from '@/components/Bill.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
+const billRef = ref()
 const nowtime = new Date()
 const selectYear = ref(nowtime.getFullYear())
 const selectMonth = ref(nowtime.getMonth() + 1)
-const currentDate = ref(['2021', '01'])
+const currentDate = ref([selectYear.value, selectMonth.value])
 const columnsType: any = ref(['year', 'month'])
 const show = ref(false)
+const expense = ref(0)
+const income = ref(0)
 
+onMounted(() => {
+  const list: any = ref(billRef.value.list)
+  for (const item in list.value) {
+    income.value += list.value[item].income
+    expense.value += list.value[item].expense
+  }
+})
 //取消键
 const cancel = () => {
   show.value = false
 }
 //确认键
 const confirm = (a: any) => {
-  console.log(a)
-  selectYear.value = a.selectedValues[0]
-  selectMonth.value = a.selectedValues[1]
+  selectYear.value = Number(a.selectedValues[0]) //将字符串转换成数字
+  selectMonth.value = Number(a.selectedValues[1])
   show.value = false
+  billRef.value.getlist(selectYear.value, selectMonth.value)
 }
 //控制点击弹出日期选择
 const showPoup = () => {

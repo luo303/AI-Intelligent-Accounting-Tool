@@ -47,12 +47,18 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { defineExpose } from 'vue'
+
 //后端返回的原生数据
 const rawlist: any = ref([])
 //经过处理，最终渲染的数据
 const list: any = ref([])
 //后续这里改成像后端发送请求获取数据
-const getrawlist = () => {
+const getrawlist = (year: any, month: any, day: any = 1) => {
+  console.log(year)
+  console.log(month)
+  console.log(day)
+
   rawlist.value = [
     {
       billId: 11,
@@ -265,8 +271,9 @@ const getrawlist = () => {
   return rawlist
 }
 //处理后端返回的原始数据
-const getlist = () =>
-  rawlist.value.reduce((acc: any, bill: any) => {
+const getlist = (year: any, month: any, day: any) => {
+  getrawlist(year, month, day)
+  return rawlist.value.reduce((acc: any, bill: any) => {
     const dateKey = bill.billAt
     const dateamount = bill.amount
     if (!acc[dateKey]) {
@@ -286,11 +293,15 @@ const getlist = () =>
     }
     return acc
   }, {})
+}
 
 onMounted(() => {
-  getrawlist()
-  list.value = getlist()
+  list.value = getlist(2025, 10, 1)
   console.log(list.value)
+})
+defineExpose({
+  list,
+  getlist
 })
 </script>
 
