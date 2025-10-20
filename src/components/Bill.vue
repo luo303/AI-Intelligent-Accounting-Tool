@@ -1,6 +1,6 @@
 <template>
-  <div v-if="list.length !== 0">
-    <div class="bill" v-for="(bill, date) in list" :key="bill.billId">
+  <div v-if="Object.keys(list).length > 0">
+    <div class="bill" v-for="(bill, date) in list" :key="date">
       <div class="top">
         <div class="left">{{ date }}</div>
         <div class="right">
@@ -24,7 +24,12 @@
               <div class="detail-bottom">{{ item.note }}支出</div>
             </div>
           </div>
-          <div class="item-right">-￥{{ item.amount }}</div>
+          <div class="item-right">
+            <span v-if="item.amount >= 0" class="income"
+              >+￥{{ Math.abs(item.amount) }}</span
+            >
+            <span v-else class="expense">-￥{{ Math.abs(item.amount) }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -35,235 +40,245 @@
 </template>
 
 <script setup lang="ts">
-const rawlist = [
-  {
-    billId: 11,
-    amount: 300,
-    currency: 'CNY',
-    category: '游戏',
-    note: 'steam',
-    noteImgUrl: '',
-    billAt: '2025-09-23',
-    comments: [
-      {
-        commentId: 2,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      },
-      {
-        commentId: 3,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      }
-    ]
-  },
-  {
-    billId: 11,
-    amount: 300,
-    currency: 'CNY',
-    category: '游戏',
-    note: 'steam',
-    noteImgUrl: '',
-    billAt: '2025-09-24',
-    comments: [
-      {
-        commentId: 2,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      },
-      {
-        commentId: 3,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      }
-    ]
-  },
-  {
-    billId: 11,
-    amount: 300,
-    currency: 'CNY',
-    category: '游戏',
-    note: 'steam',
-    noteImgUrl: '',
-    billAt: '2025-09-24',
-    comments: [
-      {
-        commentId: 2,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      },
-      {
-        commentId: 3,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      }
-    ]
-  },
-  {
-    billId: 11,
-    amount: 300,
-    currency: 'CNY',
-    category: '游戏',
-    note: 'steam',
-    noteImgUrl: '',
-    billAt: '2025-07-23',
-    comments: [
-      {
-        commentId: 2,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      },
-      {
-        commentId: 3,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      }
-    ]
-  },
-  {
-    billId: 11,
-    amount: 300,
-    currency: 'CNY',
-    category: '游戏',
-    note: 'steam',
-    noteImgUrl: '',
-    billAt: '2025-09-23',
-    comments: [
-      {
-        commentId: 2,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      },
-      {
-        commentId: 3,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      }
-    ]
-  },
-  {
-    billId: 11,
-    amount: 300,
-    currency: 'CNY',
-    category: '游戏',
-    note: 'steam',
-    noteImgUrl: '',
-    billAt: '2025-09-23',
-    comments: [
-      {
-        commentId: 2,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      },
-      {
-        commentId: 3,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      }
-    ]
-  },
-  {
-    billId: 11,
-    amount: 300,
-    currency: 'CNY',
-    category: '游戏',
-    note: 'steam',
-    noteImgUrl: '',
-    billAt: '2025-09-28',
-    comments: [
-      {
-        commentId: 2,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      },
-      {
-        commentId: 3,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      }
-    ]
-  },
-  {
-    billId: 11,
-    amount: 300,
-    currency: 'CNY',
-    category: '游戏',
-    note: 'steam',
-    noteImgUrl: '',
-    billAt: '2025-09-28',
-    comments: [
-      {
-        commentId: 2,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      },
-      {
-        commentId: 3,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      }
-    ]
-  },
-  {
-    billId: 11,
-    amount: 300,
-    currency: 'CNY',
-    category: '游戏',
-    note: 'steam',
-    noteImgUrl: '',
-    billAt: '2025-06-23',
-    comments: [
-      {
-        commentId: 2,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      },
-      {
-        commentId: 3,
-        userName: 'zhengjun1',
-        content: '羡慕steam',
-        imgUrl: ''
-      }
-    ]
-  }
-]
-const list = rawlist.reduce((acc: any, bill) => {
-  // 获取当前账单的日期键（这里 billAt 已是 YYYY-MM-DD 格式）
-  const dateKey = bill.billAt
-  const dateamount = bill.amount
-  // 检查累积器中是否有该日期键，没有则初始化空数组
-  if (!acc[dateKey]) {
-    acc[dateKey] = {
-      bills: [],
-      total: 0
+import { onMounted, ref } from 'vue'
+//后端返回的原生数据
+const rawlist: any = ref([])
+//经过处理，最终渲染的数据
+const list: any = ref([])
+//后续这里改成像后端发送请求获取数据
+const getrawlist = () => {
+  rawlist.value = [
+    {
+      billId: 11,
+      amount: -300,
+      currency: 'CNY',
+      category: '游戏',
+      note: 'steam',
+      noteImgUrl: '',
+      billAt: '2025-09-23',
+      comments: [
+        {
+          commentId: 2,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        },
+        {
+          commentId: 3,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        }
+      ]
+    },
+    {
+      billId: 11,
+      amount: 300,
+      currency: 'CNY',
+      category: '游戏',
+      note: 'steam',
+      noteImgUrl: '',
+      billAt: '2025-09-24',
+      comments: [
+        {
+          commentId: 2,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        },
+        {
+          commentId: 3,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        }
+      ]
+    },
+    {
+      billId: 11,
+      amount: 300,
+      currency: 'CNY',
+      category: '游戏',
+      note: 'steam',
+      noteImgUrl: '',
+      billAt: '2025-09-24',
+      comments: [
+        {
+          commentId: 2,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        },
+        {
+          commentId: 3,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        }
+      ]
+    },
+    {
+      billId: 11,
+      amount: 300,
+      currency: 'CNY',
+      category: '游戏',
+      note: 'steam',
+      noteImgUrl: '',
+      billAt: '2025-07-23',
+      comments: [
+        {
+          commentId: 2,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        },
+        {
+          commentId: 3,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        }
+      ]
+    },
+    {
+      billId: 11,
+      amount: 300,
+      currency: 'CNY',
+      category: '游戏',
+      note: 'steam',
+      noteImgUrl: '',
+      billAt: '2025-09-23',
+      comments: [
+        {
+          commentId: 2,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        },
+        {
+          commentId: 3,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        }
+      ]
+    },
+    {
+      billId: 11,
+      amount: 300,
+      currency: 'CNY',
+      category: '游戏',
+      note: 'steam',
+      noteImgUrl: '',
+      billAt: '2025-09-23',
+      comments: [
+        {
+          commentId: 2,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        },
+        {
+          commentId: 3,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        }
+      ]
+    },
+    {
+      billId: 11,
+      amount: 300,
+      currency: 'CNY',
+      category: '游戏',
+      note: 'steam',
+      noteImgUrl: '',
+      billAt: '2025-09-28',
+      comments: [
+        {
+          commentId: 2,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        },
+        {
+          commentId: 3,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        }
+      ]
+    },
+    {
+      billId: 11,
+      amount: 300,
+      currency: 'CNY',
+      category: '游戏',
+      note: 'steam',
+      noteImgUrl: '',
+      billAt: '2025-09-28',
+      comments: [
+        {
+          commentId: 2,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        },
+        {
+          commentId: 3,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        }
+      ]
+    },
+    {
+      billId: 11,
+      amount: 300,
+      currency: 'CNY',
+      category: '游戏',
+      note: 'steam',
+      noteImgUrl: '',
+      billAt: '2025-06-23',
+      comments: [
+        {
+          commentId: 2,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        },
+        {
+          commentId: 3,
+          userName: 'zhengjun1',
+          content: '羡慕steam',
+          imgUrl: ''
+        }
+      ]
     }
-  }
+  ]
+  return rawlist
+}
+//处理后端返回的原始数据
+const getlist = () =>
+  rawlist.value.reduce((acc: any, bill: any) => {
+    const dateKey = bill.billAt
+    const dateamount = bill.amount
+    if (!acc[dateKey]) {
+      acc[dateKey] = {
+        bills: [],
+        total: 0
+      }
+    }
+    acc[dateKey].bills.push(bill)
+    acc[dateKey].total += dateamount
+    return acc
+  }, {})
 
-  //  将当前账单推入对应日期的数组
-  acc[dateKey].bills.push(bill)
-  acc[dateKey].total += dateamount
-
-  // 返回累积器，供下一次遍历使用
-  return acc
-}, {}) // 初始化累积器为 空对象
-console.log(list)
+onMounted(() => {
+  getrawlist()
+  list.value = getlist()
+  console.log(list.value)
+})
 </script>
 
 <style scoped lang="scss">
@@ -317,6 +332,11 @@ console.log(list)
           .detail-bottom {
             color: gray;
           }
+        }
+      }
+      .item-right {
+        .income {
+          color: rgb(244, 66, 66);
         }
       }
     }
