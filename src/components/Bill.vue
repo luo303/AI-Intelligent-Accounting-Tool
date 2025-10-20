@@ -4,8 +4,14 @@
       <div class="top">
         <div class="left">{{ date }}</div>
         <div class="right">
-          <div class="font">支</div>
-          <span>￥{{ bill.total }}</span>
+          <div class="expense" v-if="bill.expense !== 0">
+            <div class="expense-font">支</div>
+            <span>￥{{ Math.abs(bill.expense) }}</span>
+          </div>
+          <div class="income">
+            <div class="income-font" v-if="bill.income !== 0">收</div>
+            <span>￥{{ bill.income }}</span>
+          </div>
         </div>
       </div>
       <div class="content">
@@ -73,7 +79,7 @@ const getrawlist = () => {
     },
     {
       billId: 11,
-      amount: 300,
+      amount: -300,
       currency: 'CNY',
       category: '游戏',
       note: 'steam',
@@ -266,11 +272,18 @@ const getlist = () =>
     if (!acc[dateKey]) {
       acc[dateKey] = {
         bills: [],
-        total: 0
+        total: 0,
+        expense: 0,
+        income: 0
       }
     }
     acc[dateKey].bills.push(bill)
     acc[dateKey].total += dateamount
+    if (bill.amount >= 0) {
+      acc[dateKey].income += bill.amount
+    } else {
+      acc[dateKey].expense += bill.amount
+    }
     return acc
   }, {})
 
@@ -296,14 +309,30 @@ onMounted(() => {
     .right {
       display: flex;
       align-items: center;
-      .font {
-        font-size: 12px;
-        text-align: center;
-        line-height: 1rem;
-        width: 1rem;
-        height: 1rem;
-        border-radius: 6px;
-        background-color: rgba(221, 30, 103, 0.237);
+      .expense {
+        display: flex;
+        .expense-font {
+          font-size: 12px;
+          text-align: center;
+          line-height: 1rem;
+          width: 1rem;
+          height: 1rem;
+          border-radius: 6px;
+          background-color: rgba(221, 30, 103, 0.237);
+        }
+      }
+      .income {
+        margin-left: 0.5rem;
+        display: flex;
+        .income-font {
+          font-size: 12px;
+          text-align: center;
+          line-height: 1rem;
+          width: 1rem;
+          height: 1rem;
+          border-radius: 6px;
+          background-color: rgba(189, 185, 186, 0.237);
+        }
       }
     }
   }
