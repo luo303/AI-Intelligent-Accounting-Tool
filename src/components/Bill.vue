@@ -41,14 +41,17 @@
     </div>
   </div>
   <div v-else>
-    <van-empty image-size="17rem" description="暂无账单" />
+    <van-empty
+      image="https://fastly.jsdelivr.net/npm/@vant/assets/custom-empty-image.png"
+      image-size="40vw"
+      description="暂无账单"
+      class="empty"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { defineExpose } from 'vue'
-
 //后端返回的原生数据
 const rawlist: any = ref([])
 //经过处理，最终渲染的数据
@@ -58,7 +61,6 @@ const getrawlist = (year: any, month: any, day: any = 1) => {
   console.log(year)
   console.log(month)
   console.log(day)
-
   rawlist.value = [
     {
       billId: 11,
@@ -381,5 +383,8 @@ defineExpose({
       }
     }
   }
+}
+.empty {
+  margin-top: 20vw;
 }
 </style>

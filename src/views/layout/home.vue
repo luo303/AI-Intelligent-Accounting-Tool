@@ -19,6 +19,21 @@
         </span>
       </div>
     </div>
+    <div class="center">
+      <div class="center-left">
+        <van-icon name="like" color="orange" size="5vw" />
+        <span>&nbsp;本月账单</span>
+      </div>
+      <div class="center-right">
+        <div>
+          <van-tabs v-model:active="active" type="card" @click-tab="onClickTab">
+            <van-tab title="所有"></van-tab>
+            <van-tab title="自己"></van-tab>
+            <van-tab title="团队"></van-tab>
+          </van-tabs>
+        </div>
+      </div>
+    </div>
     <div class="detail">
       <div class="detail-top"></div>
       <bill ref="billRef"></bill>
@@ -46,6 +61,7 @@
 import Bill from '@/components/Bill.vue'
 import { onMounted, ref } from 'vue'
 
+const active = ref(0)
 const billRef = ref()
 const nowtime = new Date()
 const selectYear = ref(nowtime.getFullYear())
@@ -89,6 +105,10 @@ const formatter = (type: any, option: any) => {
 }
 const minDate = new Date(2020, 0, 1)
 const maxDate = new Date(2028, 12, 1)
+const onClickTab = (detail: any) => {
+  //后续调用接口获取数据
+  console.log(detail.title)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -111,7 +131,7 @@ const maxDate = new Date(2028, 12, 1)
   }
   .expense {
     margin: 1.5rem 0;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 1.3rem;
     color: rgb(116, 144, 235);
     .expense-font {
@@ -129,12 +149,12 @@ const maxDate = new Date(2028, 12, 1)
   }
   .abc {
     .income {
-      font-weight: 700;
+      font-weight: 500;
       font-size: 1.2rem;
       color: rgb(245, 58, 58);
     }
     .balance {
-      font-weight: 700;
+      font-weight: 500;
       font-size: 1.2rem;
       color: rgb(156, 213, 71);
       margin-left: 2rem;
@@ -151,6 +171,19 @@ const maxDate = new Date(2028, 12, 1)
       border-radius: 6px;
       background-color: rgba(189, 185, 186, 0.237);
     }
+  }
+}
+.center {
+  margin: 3vw 5vw 3vw 5vw;
+  height: 7vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .center-left {
+    font-size: 4vw;
+  }
+  .center-right {
+    width: 50vw;
   }
 }
 </style>
